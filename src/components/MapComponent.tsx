@@ -31,7 +31,7 @@ export default function MapComponent() {
           handleClick(e, setPinX, setPinY, setPinOn)
         }
       />
-      {/*<PinComponent {...{ pinX: pinX, pinY: pinY, pinOn: pinOn }} />*/}
+      <PinComponent {...{ pinX: pinX, pinY: pinY, pinOn: pinOn }} />
     </>
   );
 }

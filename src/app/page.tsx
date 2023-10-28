@@ -6,7 +6,7 @@ import PinComponent from "@/components/PinComponent";
 export default function Home() {
   return (
     <div>
-      <PinComponent {...{ pinX: 400, pinY: 400, pinOn: true }} />
+      <MapComponent />
     </div>
   );
 }

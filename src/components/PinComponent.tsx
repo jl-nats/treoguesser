@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import Pin from "../../public/Images/TempPin.png";
+import Pin from "../../public/Images/TreePin.png";
 
 type pinProps = {
   pinX: number;
@@ -13,7 +13,11 @@ export default function PinComponent(props: pinProps) {
     <Image
       height={20}
       width={20}
-      className={`absolute right-${props.pinX} top-${props.pinY}`}
+      style={{
+        position: "absolute",
+        top: props.pinY - 30,
+        left: props.pinX - 10,
+      }}
       src={Pin}
       alt="Pin"
     />
