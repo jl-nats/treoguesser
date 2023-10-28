@@ -1,0 +1,14 @@
+.map-fade-in { animation: mapFade 2s; }
+.map-fade-out {
+  animation-name: mapFade;
+  animation-direction: reverse;
+  animation-duration: 2s;
+}
+
+@keyframes mapFade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+
+  
