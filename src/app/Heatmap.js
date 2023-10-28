@@ -1,21 +1,13 @@
 import { NextResponse } from 'next/server'
 const apiKey = `AIzaSyBU8OhxRDRtnaRFo6Dv-hKhFMi1Dezg8HI`;
 
-export async function GET() {
+async function GET() {
     let point = {lat:51, lng:0};
     var scale = 12;
-    let coord = project(point, scale);
-    console.log(coord.lat.toString());
-    console.log(coord.lng.toString());
-    console.log(scale.toString());
-
+    // append it to your page
     
-    const url = `https://airquality.googleapis.com/v1/mapTypes/UAQI_RED_GREEN/heatmapTiles/${scale}/${coord.lat}/${coord.lng}?key=${apiKey}`;
-
-    const res = await fetch(url);
-    console.log(res.status)
-    return res;
-    
+    let img = (requestHeatmap(point,scale));
+    return Response(img);    
   }
 
 // The mapping between latitude, longitude and pixels is defined by the web
@@ -31,4 +23,21 @@ function project(point,scale) {
     return coord;
   }
 
+export async function requestHeatmap(point,scale){
+  let coord = project(point, scale);
+    
+  const url = `https://airquality.googleapis.com/v1/mapTypes/UAQI_RED_GREEN/heatmapTiles/${scale}/${coord.lat}/${coord.lng}?key=${apiKey}`;
+
+  const res = await fetch(url);
   
+  // convert to Base64
+  var b64Response = btoa(res);
+
+  // create an image
+  var outputImg = document.createElement('img');
+  outputImg.src = 'data:image/png;base64,'+b64Response;
+
+  
+  console.log(res.status)
+  return b64Response;
+}
