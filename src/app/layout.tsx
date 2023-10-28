@@ -16,7 +16,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={karla.className}>{children}</body>
+      <body
+        className={`${karla.className} justify-center flex bg-lime-400 relative`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
