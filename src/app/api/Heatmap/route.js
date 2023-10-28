@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server'
 const apiKey = `AIzaSyBU8OhxRDRtnaRFo6Dv-hKhFMi1Dezg8HI`;
 
 export async function GET() {
-    let point = {lat:51, lng:0};
-    var scale = 12;
+    let point = {lat:50, lng:0};
+    var scale = 4;
     let coord = project(point, scale);
     console.log(coord.lat.toString());
     console.log(coord.lng.toString());
