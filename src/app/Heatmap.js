@@ -32,12 +32,11 @@ export async function requestHeatmap(point,scale){
   
   // convert to Base64
   var b64Response = btoa(res);
-
+  
   // create an image
-  var outputImg = document.createElement('img');
-  outputImg.src = 'data:image/png;base64,'+b64Response;
+  b64Response = 'data:image/png;base64,'+b64Response;
 
   
-  console.log(res.status)
+  console.log(res.json())
   return b64Response;
 }
