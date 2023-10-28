@@ -1,11 +1,12 @@
 import Image from "next/image";
+import WorldMap from "../../public/Images/TempMap.webp";
+import MapComponent from "@/components/MapComponent";
+import PinComponent from "@/components/PinComponent";
 
 export default function Home() {
   return (
-    <div className="justify-center flex bg-lime-400 h-screen">
-      <header className="text-8xl text-white drop-shadow-xl font-extrabold justify-center mt-4">
-        Treoguessr
-      </header>
+    <div>
+      <PinComponent {...{ pinX: 400, pinY: 400, pinOn: true }} />
     </div>
   );
 }
