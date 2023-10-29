@@ -9,19 +9,24 @@ import React, {
   Dispatch,
   SetStateAction,
   useEffect,
+  use,
 } from "react";
 import PinComponent from "./PinComponent";
 import "../css/Animations.css";
 import { getMapURL } from "../app/api/StaticMap/route.js";
-import { calculateScores } from "../app/api/StaticMap/calculateScores.js";
+import { calculateScores, userEntrytoCoords } from "../app/calculateScores";
 
 function handleClick(
   e: MouseEvent<HTMLImageElement>,
   pinOn: boolean,
   setPinX: Dispatch<SetStateAction<number>>,
   setPinY: Dispatch<SetStateAction<number>>,
-  setPinOn: Dispatch<SetStateAction<boolean>>
+  setPinOn: Dispatch<SetStateAction<boolean>>,
+  setRectX: Dispatch<SetStateAction<number>>,
+  setRectY: Dispatch<SetStateAction<number>>
 ) {
+  setRectX(e.currentTarget.getBoundingClientRect().left);
+  setRectY(e.currentTarget.getBoundingClientRect().top);
   const x = e.clientX;
   const y = e.clientY;
   if (!pinOn) {
@@ -40,18 +45,22 @@ export default function MapComponent({ setGameResult }: MapProps) {
   const [pinY, setPinY] = useState(0);
   const [pinOn, setPinOn] = useState(false);
   const [img, setImg] = useState("");
+  const [rectX, setRectX] = useState(0);
+  const [rectY, setRectY] = useState(0);
 
   useEffect(() => {
     if (pinX == 0) {
       setPinX(0);
       return;
     }
-    //const score = calculateScores(pinX, pinY);
+
+    const [lat, long] = userEntrytoCoords(pinX - rectX, pinY - rectY, 600, 600);
+    const score = calculateScores(long, lat);
     setGameResult([
       ["NULL", 0],
-      ["Score", 0.3],
+      ["Score", score],
     ]);
-  }, [pinX, pinY, setGameResult]);
+  }, [pinX, pinY, rectX, rectY]);
 
   useEffect(() => {
     const lat: number = Math.floor(Math.random() * 340) - 170;
@@ -75,7 +84,7 @@ export default function MapComponent({ setGameResult }: MapProps) {
           "absolute origin-bottom-left border-black border-4 border-solid"
         }
         onClick={(e: MouseEvent<HTMLImageElement>) =>
-          handleClick(e, pinOn, setPinX, setPinY, setPinOn)
+          handleClick(e, pinOn, setPinX, setPinY, setPinOn, setRectX, setRectY)
         }
       />
       <PinComponent {...{ pinX: pinX, pinY: pinY, pinOn: pinOn }} />

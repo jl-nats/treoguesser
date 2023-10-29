@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-var apiKey = "AIzaSyBU8OhxRDRtnaRFo6Dv-hKhFMi1Dezg8HI";
+const apiKey = "AIzaSyBU8OhxRDRtnaRFo6Dv-hKhFMi1Dezg8HI";
 const lat = 37.419734;
 const long = -122.0827784;
 
@@ -8,7 +8,7 @@ const long = -122.0827784;
 var dataUrl =
   "https://airquality.googleapis.com/v1/currentConditions:lookup?key=" + apiKey;
 
-function getAQI(lat, long) {
+function getAQI(lat: number, long: number): Promise<number> {
   return new Promise((resolve, reject) => {
     const requestData = {
       method: "POST",
@@ -44,7 +44,7 @@ function getAQI(lat, long) {
   });
 }
 
-async function meanAQI(lat, long) {
+async function meanAQI(lat: number, long: number) {
   const numberOfRequests = 5; //Number of concurrent requests
   const requests = [];
 
@@ -57,10 +57,10 @@ async function meanAQI(lat, long) {
   try {
     const responses = await Promise.all(requests);
 
-    let sum = 0; //This calculates the means of the responses array
-    for (let i = 0; i < responses.length; i++) {
-      sum += responses[i];
-    }
+    const sum = responses.reduce((acc: number, cur: number) => {
+      return acc + cur;
+    }, 0);
+
     let mean = sum / responses.length;
     return mean;
   } catch (error) {
