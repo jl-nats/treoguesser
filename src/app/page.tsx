@@ -1,12 +1,9 @@
 import Image from "next/image";
-import { requestHeatmap } from "./Heatmap.js";
+import { requestHeatmap } from "./Heatmapcopy.js";
 
 export default async function Home() {
   let point = {lat:51, lng:0};
   var scale = 12;
-  
-  let b64Response = await requestHeatmap(point,scale);
-  var outputImg = b64Response;
   
   //var doc = document.implementation.createHTMLDocument('');
   var htmlString =(<div className="relative">
@@ -15,12 +12,6 @@ export default async function Home() {
       Treoguessr
     </header>
   </div>
-  <Image
-      src={outputImg}
-      width={500}
-      height={500}
-      alt="test Image"
-    />
   <div className="inset-y-10 bottom-0 bottom-100 rounded bg-slate-600 text-2xl text-white justify-center">
     <h1 className="justify-center">About</h1>
     <br />
@@ -32,5 +23,4 @@ export default async function Home() {
     </p>
   </div>
 </div>);
-  return (htmlString);
 }
