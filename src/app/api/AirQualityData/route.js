@@ -69,7 +69,45 @@ async function meanAQI(lat,long) {
 
 let mean = await meanAQI(lat,long);
 console.log(mean);
-/*
-function calculateTreesNeeded(mean){
-    
-}*/
+
+function calculateTreesNeeded(lat,long,mean){
+    return new Promise((resolve, reject) => {
+        const requestData = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                location: {
+                latitude: lat,
+                longitude: long,
+                },
+            }),
+            extraComputations: [
+                "DOMINANT_POLLUTANT_CONCENTRATION",
+                "POLLUTANT_CONCENTRATION",
+              ],
+        };
+  
+        fetch(dataUrl, requestData)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.error('Error:', response.status, response.statusText);
+                    reject(`Request failed for latitude ${lat}, longitude ${long}`);
+                }
+            })
+            .then((data) => {
+                if (data !== null) {
+                    resolve(data.indexes[0]['aqi']);
+                }
+            })
+            .catch((error) => {
+                console.error('Network error:', error);
+                reject(`Network error for latitude ${lat}, longitude ${long}`);
+            });
+    });
+}
+
+calculateTreesNeeded(lat,long,5);

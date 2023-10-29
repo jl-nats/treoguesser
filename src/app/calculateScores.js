@@ -7,7 +7,6 @@ function userEntrytoCoords(x,y,width,height){
     let mercN = ((height/2)-y)*((2*Math.PI)/width);
     let lateralRadius = (mercN-Math.log(tan(Math.PI/4)))*2;
     let latitude = lateralRadius*(100/Math.PI);
-
     return longitude,latitude;
 }
 
