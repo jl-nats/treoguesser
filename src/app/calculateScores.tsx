@@ -1,6 +1,5 @@
 import { meanAQI } from "@/app/api/AirQualityData/route";
 import { getAQI } from "@/app/api/AirQualityData/route";
-import exp from "constants";
 
 function userEntrytoCoords(
   x: number,

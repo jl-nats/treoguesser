@@ -13,7 +13,7 @@ import React, {
 } from "react";
 import PinComponent from "./PinComponent";
 import "../css/Animations.css";
-import { getMapURL } from "../app/api/StaticMap/route.js";
+import { getMapURL } from "@/app/api/StaticMap/route";
 import { calculateScores, userEntrytoCoords } from "../app/calculateScores";
 
 function handleClick(

@@ -68,9 +68,6 @@ async function meanAQI(lat: number, long: number) {
   }
 }
 
-let mean = await meanAQI(lat, long);
-console.log(mean);
-
 export { getAQI, meanAQI };
 /*
 function calculateTreesNeeded(mean){
