@@ -38,5 +38,5 @@ export async function requestHeatmap(point,scale){
 
   
   console.log(res.json())
-  return b64Response;
+  return res;
 }
