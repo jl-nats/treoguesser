@@ -42,12 +42,13 @@ export default function Home() {
         </div>
       </section>
       <section className="h-screen flex flex-wrap inset-y-10 bottom-0 bottom-100 bg-green-800 text-2xl text-white justify-center">
-        <h1>About</h1>
+        <h1 className="pt-4 text-4xl">About</h1>
         <p className="pl-10 pr-10">
-          Lorem ipsum dolor, sit amet con sectetur adipisicing elit. Recusandae
-          aliquam ab sed ea ut, impedit aliquid! Voluptas illum tempore debitis.
-          Itaque officiis eveniet eius explicabo culpa esse hic voluptates
-          perferendis?
+          Treoguessr is a new and exploratory way to show you how air pollution
+          affacts our world and how trees can help us fix it. We show you a
+          place in our world, you click the map to tell us where you thinks it
+          needs trees the most we calculate how efficient your choice was, based
+          on API data about pollution in the area.
         </p>
       </section>
     </div>

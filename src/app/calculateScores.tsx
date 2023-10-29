@@ -24,3 +24,5 @@ async function calculateScores(longitude: number, latitude: number) {
   let score = aqi / mean;
   return score;
 }
+
+export { calculateScores, userEntrytoCoords };

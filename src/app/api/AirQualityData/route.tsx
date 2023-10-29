@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 
 var apiKey = "AIzaSyBU8OhxRDRtnaRFo6Dv-hKhFMi1Dezg8HI";
-const lat = 37.419734;
-const long = -122.0827784;
 
 // Build the URL for the static map
 var dataUrl =

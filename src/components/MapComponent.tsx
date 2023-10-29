@@ -13,7 +13,7 @@ import React, {
 import PinComponent from "./PinComponent";
 import "../css/Animations.css";
 import { getMapURL } from "../app/api/StaticMap/route";
-import { calculateScores } from "../app/api/StaticMap/calculateScores";
+import { calculateScores, userEntrytoCoords } from "../app/calculateScores";
 
 function handleClick(
   e: MouseEvent<HTMLImageElement>,
@@ -60,13 +60,23 @@ export default function MapComponent({
         setPinX(0);
         return;
       }
-      const score = await calculateScores(
+      const [lat, long] = userEntrytoCoords(
         pinX - (rectX + 300),
-        pinY - (rectY + 300)
+        pinY - (rectY + 300),
+        rectX,
+        rectY
       );
+      let score;
+      console.log(`lat: ${lat} long: ${long}`);
+      try {
+        score = await calculateScores(long, lat);
+      } catch (e) {
+        score = 0;
+      }
+
       setGameResult([
         ["NULL", 0],
-        ["Score", score],
+        ["Score", parseFloat(Math.random().toPrecision(2))],
       ]);
     }
     tempFunc();

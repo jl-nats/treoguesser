@@ -7,7 +7,7 @@ var apiKey = "AIzaSyBU8OhxRDRtnaRFo6Dv-hKhFMi1Dezg8HI";
 export async function getMapURL(longitude: number, latitude: number) {
   var mapSize = "500x400"; //WidthxHeight
   var mapCenter = `${longitude},${latitude}`;
-  var zoomLevel = "6";
+  var zoomLevel = "2";
 
   // Build the URL for the static map
   var mapUrl =
