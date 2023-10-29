@@ -11,11 +11,11 @@
   }
 
 .result-slide {
-  animation: resultSlide 2s;
-  margin-top: 25%; 
+  animation: resultSlide 1.5s;
+  margin-top: 30%; 
 }
 
 @keyframes resultSlide {
   0% {margin-top: 0%}
-  100% {margin-top: 25%;}
+  100% {margin-top: 30%;}
 }

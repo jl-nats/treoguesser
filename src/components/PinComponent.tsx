@@ -15,7 +15,7 @@ export default function PinComponent(props: PinProps) {
       width={20}
       style={{
         position: "absolute",
-        top: props.pinY - 30,
+        top: props.pinY - 70,
         left: props.pinX - 10,
       }}
       src={Pin}
