@@ -12,8 +12,8 @@ import React, {
 } from "react";
 import PinComponent from "./PinComponent";
 import "../css/Animations.css";
-import { getMapURL } from "../app/api/StaticMap/route.js";
-import { calculateScores } from "../app/api/StaticMap/calculateScores.js";
+import { getMapURL } from "../app/api/StaticMap/route";
+import { calculateScores } from "../app/api/StaticMap/calculateScores";
 
 function handleClick(
   e: MouseEvent<HTMLImageElement>,
@@ -53,7 +53,7 @@ export default function MapComponent({
       setPinX(0);
       return;
     }
-    //const score = calculateScores(pinX, pinY);
+    const score = calculateScores(pinX, pinY);
     setGameResult([
       ["NULL", 0],
       ["Score", 0.3],
