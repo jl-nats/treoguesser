@@ -9,6 +9,7 @@ export default function Home() {
         <header className="flex relative text-8xl text-white drop-shadow-xl font-extrabold justify-center mt-10">
           Treoguessr
         </header>
+        <MapComponent />
       </section>
       <section className="h-screen flex flex-wrap inset-y-10 bottom-0 bottom-100 bg-green-800 text-2xl text-white justify-center">
         <h1>About</h1>
