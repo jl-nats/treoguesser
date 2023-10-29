@@ -2,11 +2,11 @@ import { NextResponse } from 'next/server'
 
 const apiKey = `AIzaSyBU8OhxRDRtnaRFo6Dv-hKhFMi1Dezg8HI`;
 
-let point = {lat:51.4808, lng:0.2426};
-var scale = 8;
+let point = {lat:49, lng:-0};
+var scale = 9;
 let coord = project(point,scale);
 
-const mapUrl = `https://airquality.googleapis.com/v1/mapTypes/UAQI_RED_GREEN/heatmapTiles/${scale}/${coord.lat}/${coord.lng}?key=${apiKey}`;
+const mapUrl = `https://airquality.googleapis.com/v1/mapTypes/CAN_EC/heatmapTiles/${scale}/${coord.lat}/${coord.lng}?key=${apiKey}`;
 
 export async function GET() {
     const res = await fetch(mapUrl);
