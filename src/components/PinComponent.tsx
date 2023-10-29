@@ -2,13 +2,13 @@
 import Image from "next/image";
 import Pin from "../../public/Images/TreePin.png";
 
-type pinProps = {
+type PinProps = {
   pinX: number;
   pinY: number;
   pinOn: boolean;
 };
 
-export default function PinComponent(props: pinProps) {
+export default function PinComponent(props: PinProps) {
   return props.pinOn ? (
     <Image
       height={20}
