@@ -53,13 +53,29 @@ export default function MapComponent({ setGameResult }: MapProps) {
       setPinX(0);
       return;
     }
+    const FindScore = async () => {
+      const [lat, long] = userEntrytoCoords(
+        pinX - rectX,
+        pinY - rectY,
+        600,
+        600
+      );
+      try {
+        const score = await calculateScores(long, lat);
+      } catch (e) {
+        console.log("You clicked an ocean! ");
+        const score = 0;
+      }
 
-    const [lat, long] = userEntrytoCoords(pinX - rectX, pinY - rectY, 600, 600);
-    const score = calculateScores(long, lat);
-    setGameResult([
-      ["NULL", 0],
-      ["Score", score],
-    ]);
+      console.log(score);
+      setGameResult([
+        ["NULL", 0],
+        ["Score", score],
+      ]);
+    };
+    try {
+      FindScore();
+    } catch (e) {}
   }, [pinX, pinY, rectX, rectY]);
 
   useEffect(() => {

@@ -8,7 +8,10 @@ const long = -122.0827784;
 var dataUrl =
   "https://airquality.googleapis.com/v1/currentConditions:lookup?key=" + apiKey;
 
-function getAQI(lat: number, long: number): Promise<number> {
+function getAQI(lat1: number, long1: number): Promise<number> {
+  let lat = lat1.toPrecision(3);
+  let long = long1.toPrecision(3);
+  console.log(`!!!!!!!!!!!!!We have ${lat} and ${long}! !!!!!!!!!!!!!`);
   return new Promise((resolve, reject) => {
     const requestData = {
       method: "POST",
