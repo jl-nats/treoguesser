@@ -33,12 +33,19 @@ function handleClick(
 
 type MapProps = {
   setGameResult: Dispatch<SetStateAction<[string, number][]>>;
+  pinOn: boolean;
+  setPinOn: Dispatch<SetStateAction<boolean>>;
+  loadMap: boolean;
 };
 
-export default function MapComponent({ setGameResult }: MapProps) {
+export default function MapComponent({
+  setGameResult,
+  pinOn,
+  setPinOn,
+  loadMap,
+}: MapProps) {
   const [pinX, setPinX] = useState(0);
   const [pinY, setPinY] = useState(0);
-  const [pinOn, setPinOn] = useState(false);
   const [img, setImg] = useState("");
 
   useEffect(() => {
@@ -54,15 +61,15 @@ export default function MapComponent({ setGameResult }: MapProps) {
   }, [pinX, pinY, setGameResult]);
 
   useEffect(() => {
-    const lat: number = Math.floor(Math.random() * 340) - 170;
-    const long: number = Math.floor(Math.random() * 160) - 80;
     const fetchImg = async () => {
+      const lat: number = Math.floor(Math.random() * 340) - 170;
+      const long: number = Math.floor(Math.random() * 160) - 80;
       const url = await getMapURL(lat, long);
       setImg(url);
     };
 
     fetchImg();
-  }, []);
+  }, [loadMap]);
 
   return (
     <div className="flex justify-center mt-12">
