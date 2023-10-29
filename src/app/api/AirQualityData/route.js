@@ -43,7 +43,7 @@ function getAQI(lat, long) {
     });
 }
   
-async function meanAQI() {
+async function meanAQI(lat,long) {
     const numberOfRequests = 5; //Number of concurrent requests
     const requests = [];
   
@@ -67,8 +67,9 @@ async function meanAQI() {
     }
 }
 
-let mean = await meanAQI();
-
+let mean = await meanAQI(lat,long);
+console.log(mean);
+/*
 function calculateTreesNeeded(mean){
     
-}
+}*/
