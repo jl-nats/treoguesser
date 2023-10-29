@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server'
 
 var apiKey = 'AIzaSyBU8OhxRDRtnaRFo6Dv-hKhFMi1Dezg8HI';
-var lat = 37.419734;
-var long = -122.0827784;
+var Globalmean = 0;
+const lat = 37.419734;
+const long = -122.0827784;
 
 // Build the URL for the static map
 var dataUrl = "https://airquality.googleapis.com/v1/currentConditions:lookup?key="+apiKey;
@@ -43,10 +44,8 @@ function getAQI(lat, long) {
     });
 }
   
-async function runMultipleRequests() {
-    const numberOfRequests = 5; // Number of concurrent requests
-    const lat = 37.419734;
-    const long = -122.0827784;
+async function meanAQI() {
+    const numberOfRequests = 5; //Number of concurrent requests
     const requests = [];
   
     for (let i = 0; i < numberOfRequests; i++) {
@@ -55,23 +54,21 @@ async function runMultipleRequests() {
     for (let i = 0; i < numberOfRequests; i++) {
         requests.push(getAQI(lat - (i / 10), long - (i / 10)));
     }
-  
     try {
       const responses = await Promise.all(requests);
-      console.log(responses); // Array of responses from all requests
-      return(responses);
+      console.log(responses);
+
+      let sum = 0; //This calculates the means of the responses array
+      for (let i=0; i<responses.length; i++){
+        sum += responses[i];
+      }
+      let mean = sum/responses.length;
+      console.log(mean);
+      Globalmean = mean;
     } catch (error) {
       console.error(error);
     }
 }
 
-function meanAQI(){
-    arrayofAQI = runMultipleRequests();
-    let sum = 0;
-    for (let i=0; i<arrayofAQI.length;i++){
-        sum += arrayofAQI[i];
-    }
-    let mean = sum/arrayofAQI.length;
-    return mean;
-}
-console.log(meanAQI());
+let mean = meanAQI();
+console.log(Globalmean);
