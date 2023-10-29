@@ -20,8 +20,12 @@ function handleClick(
   pinOn: boolean,
   setPinX: Dispatch<SetStateAction<number>>,
   setPinY: Dispatch<SetStateAction<number>>,
-  setPinOn: Dispatch<SetStateAction<boolean>>
+  setPinOn: Dispatch<SetStateAction<boolean>>,
+  setRectX: Dispatch<SetStateAction<number>>,
+  setRectY: Dispatch<SetStateAction<number>>
 ) {
+  setRectX(e.currentTarget.getBoundingClientRect().left);
+  setRectY(e.currentTarget.getBoundingClientRect().top);
   const x = e.clientX;
   const y = e.clientY;
   if (!pinOn) {
@@ -47,17 +51,25 @@ export default function MapComponent({
   const [pinX, setPinX] = useState(0);
   const [pinY, setPinY] = useState(0);
   const [img, setImg] = useState("");
+  const [rectX, setRectX] = useState(0);
+  const [rectY, setRectY] = useState(0);
 
   useEffect(() => {
-    if (pinX == 0) {
-      setPinX(0);
-      return;
+    async function tempFunc() {
+      if (pinX == 0) {
+        setPinX(0);
+        return;
+      }
+      const score = await calculateScores(
+        pinX - (rectX + 300),
+        pinY - (rectY + 300)
+      );
+      setGameResult([
+        ["NULL", 0],
+        ["Score", score],
+      ]);
     }
-    const score = calculateScores(pinX, pinY);
-    setGameResult([
-      ["NULL", 0],
-      ["Score", 0.3],
-    ]);
+    tempFunc();
   }, [pinX, pinY, setGameResult]);
 
   useEffect(() => {
@@ -82,7 +94,7 @@ export default function MapComponent({
           "absolute origin-bottom-left border-black border-4 border-solid"
         }
         onClick={(e: MouseEvent<HTMLImageElement>) =>
-          handleClick(e, pinOn, setPinX, setPinY, setPinOn)
+          handleClick(e, pinOn, setPinX, setPinY, setPinOn, setRectX, setRectY)
         }
       />
       <PinComponent {...{ pinX: pinX, pinY: pinY, pinOn: pinOn }} />

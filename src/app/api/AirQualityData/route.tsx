@@ -8,7 +8,10 @@ const long = -122.0827784;
 var dataUrl =
   "https://airquality.googleapis.com/v1/currentConditions:lookup?key=" + apiKey;
 
-function getAQI(lat, long) {
+function getAQI(lat1: number, long1: number): Promise<number> {
+  const lat = lat1.toPrecision(3);
+  const long = long1.toPrecision(3);
+  console.log("SENDING :  ADSONOIANFOI!!!!!!!!!!!!!!!!! " + lat + " " + long);
   return new Promise((resolve, reject) => {
     const requestData = {
       method: "POST",
@@ -44,7 +47,7 @@ function getAQI(lat, long) {
   });
 }
 
-async function meanAQI(lat, long) {
+async function meanAQI(lat: number, long: number) {
   const numberOfRequests = 5; //Number of concurrent requests
   const requests = [];
 
@@ -68,47 +71,44 @@ async function meanAQI(lat, long) {
   }
 }
 
-let mean = await meanAQI(lat, long);
-console.log(mean);
+function calculateTreesNeeded(lat: number, long: number, mean: number) {
+  return new Promise((resolve, reject) => {
+    const requestData = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        location: {
+          latitude: lat,
+          longitude: long,
+        },
+      }),
+      extraComputations: [
+        "DOMINANT_POLLUTANT_CONCENTRATION",
+        "POLLUTANT_CONCENTRATION",
+      ],
+    };
 
-function calculateTreesNeeded(lat,long,mean){
-    return new Promise((resolve, reject) => {
-        const requestData = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                location: {
-                latitude: lat,
-                longitude: long,
-                },
-            }),
-            extraComputations: [
-                "DOMINANT_POLLUTANT_CONCENTRATION",
-                "POLLUTANT_CONCENTRATION",
-              ],
-        };
-  
-        fetch(dataUrl, requestData)
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    console.error('Error:', response.status, response.statusText);
-                    reject(`Request failed for latitude ${lat}, longitude ${long}`);
-                }
-            })
-            .then((data) => {
-                if (data !== null) {
-                    resolve(data.indexes[0]['aqi']);
-                }
-            })
-            .catch((error) => {
-                console.error('Network error:', error);
-                reject(`Network error for latitude ${lat}, longitude ${long}`);
-            });
-    });
+    fetch(dataUrl, requestData)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.error("Error:", response.status, response.statusText);
+          reject(`Request failed for latitude ${lat}, longitude ${long}`);
+        }
+      })
+      .then((data) => {
+        if (data !== null) {
+          resolve(data.indexes[0]["aqi"]);
+        }
+      })
+      .catch((error) => {
+        console.error("Network error:", error);
+        reject(`Network error for latitude ${lat}, longitude ${long}`);
+      });
+  });
 }
 
-calculateTreesNeeded(lat,long,5);
+export { getAQI, meanAQI };
