@@ -30,7 +30,11 @@ function handleClick(
   }
 }
 
-export default function MapComponent() {
+type MapProps = {
+  setGameResult: Dispatch<SetStateAction<[string, number][]>>;
+};
+
+export default function MapComponent({ setGameResult }: MapProps) {
   const [pinX, setPinX] = useState(0);
   const [pinY, setPinY] = useState(0);
   const [pinOn, setPinOn] = useState(false);
@@ -48,20 +52,26 @@ export default function MapComponent() {
   }, []);
 
   return (
-    <div>
+    <div className="flex justify-center mt-12">
       <Image
         src={WorldMap2}
         alt="World Map Pollution"
-        width={500}
-        height={500}
-        className={"absolute" + (pinOn ? " map-fade-in " : " opacity-0 ")}
+        width={600}
+        height={600}
+        className={
+          "absolute origin-bottom-left border-black border-4 border-solid" +
+          (pinOn ? " map-fade-in " : " opacity-0 ")
+        }
       />
       <Image
         src={img}
         alt="World Map"
-        width={500}
-        height={500}
-        className={"absolute " + (pinOn ? " opacity-0 map-fade-out " : "")}
+        width={600}
+        height={600}
+        className={
+          "absolute origin-bottom-left border-black border-4 border-solid" +
+          (pinOn ? " opacity-0 map-fade-out " : "")
+        }
         onClick={(e: MouseEvent<HTMLImageElement>) =>
           handleClick(e, pinOn, setPinX, setPinY, setPinOn)
         }
