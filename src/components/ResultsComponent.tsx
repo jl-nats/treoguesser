@@ -1,6 +1,7 @@
 import EntryComponent from "./EntryComponent";
+import "@/css/Animations.css";
 type ResultsProps = {
-  data: Array<[string, number]>;
+  data: [string, number][];
 };
 
 export default function ResultsComponent({ data }: ResultsProps) {
@@ -17,7 +18,7 @@ export default function ResultsComponent({ data }: ResultsProps) {
   });
 
   return (
-    <div className="bg-slate-50 rounded-xl w-2/6 shadow-2xl">
+    <div className={"bg-slate-50 rounded-xl w-2/6 shadow-2xl"}>
       <ul className="justify-center">{items}</ul>
     </div>
   );
