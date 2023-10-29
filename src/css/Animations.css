@@ -15,6 +15,13 @@
   margin-top: 30%; 
 }
 
+.result-slide-reverse {
+  animation-name: resultSlide;
+  animation-duration: 1.5s;
+  animation-direction: reverse;
+  margin-top: 0%
+}
+
 @keyframes resultSlide {
   0% {margin-top: 0%}
   100% {margin-top: 30%;}
