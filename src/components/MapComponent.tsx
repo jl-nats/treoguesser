@@ -13,6 +13,7 @@ import React, {
 import PinComponent from "./PinComponent";
 import "../css/Animations.css";
 import { getMapURL } from "../app/api/StaticMap/route.js";
+import { calculateScores } from "../app/api/StaticMap/calculateScores.js";
 
 function handleClick(
   e: MouseEvent<HTMLImageElement>,
@@ -41,10 +42,22 @@ export default function MapComponent({ setGameResult }: MapProps) {
   const [img, setImg] = useState("");
 
   useEffect(() => {
+    if (pinX == 0) {
+      setPinX(0);
+      return;
+    }
+    //const score = calculateScores(pinX, pinY);
+    setGameResult([
+      ["NULL", 0],
+      ["Score", 0.3],
+    ]);
+  }, [pinX, pinY, setGameResult]);
+
+  useEffect(() => {
+    const lat: number = Math.floor(Math.random() * 340) - 170;
+    const long: number = Math.floor(Math.random() * 160) - 80;
     const fetchImg = async () => {
-      console.log("hello");
-      const url = await getMapURL();
-      console.log(url);
+      const url = await getMapURL(lat, long);
       setImg(url);
     };
 
@@ -54,23 +67,12 @@ export default function MapComponent({ setGameResult }: MapProps) {
   return (
     <div className="flex justify-center mt-12">
       <Image
-        src={WorldMap2}
-        alt="World Map Pollution"
-        width={600}
-        height={600}
-        className={
-          "absolute origin-bottom-left border-black border-4 border-solid" +
-          (pinOn ? " map-fade-in " : " opacity-0 ")
-        }
-      />
-      <Image
         src={img}
         alt="World Map"
         width={600}
         height={600}
         className={
-          "absolute origin-bottom-left border-black border-4 border-solid" +
-          (pinOn ? " opacity-0 map-fade-out " : "")
+          "absolute origin-bottom-left border-black border-4 border-solid"
         }
         onClick={(e: MouseEvent<HTMLImageElement>) =>
           handleClick(e, pinOn, setPinX, setPinY, setPinOn)

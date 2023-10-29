@@ -10,7 +10,7 @@ export default function Home() {
   const [gameResult, setGameResult]: [
     [string, number][],
     Dispatch<SetStateAction<[string, number][]>>
-  ] = useState([["Test", 0.2]]);
+  ] = useState([["NULL", 0]]);
 
   return (
     <div className="relative">
@@ -21,7 +21,7 @@ export default function Home() {
         <MapComponent setGameResult={setGameResult} />
         <div
           className={`flex justify-center ${
-            gameResult.length > 0 ? " result-slide " : "opacity-0"
+            gameResult.length > 1 ? " result-slide " : "opacity-0"
           }`}
         >
           <ResultsComponent data={gameResult} />

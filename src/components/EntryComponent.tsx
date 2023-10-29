@@ -14,6 +14,7 @@ export default function EntryComponent({
   maxNameLen,
 }: EntryProps) {
   const newName = name.padEnd(maxNameLen);
+  if (name == "NULL") return <></>;
 
   return (
     <>

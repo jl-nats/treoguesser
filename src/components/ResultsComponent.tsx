@@ -18,7 +18,7 @@ export default function ResultsComponent({ data }: ResultsProps) {
   });
 
   return (
-    <div className={"bg-slate-50 rounded-xl w-2/6 shadow-2xl"}>
+    <div className={"bg-slate-50 rounded-xl w-1/4 shadow-2xl"}>
       <ul className="justify-center">{items}</ul>
     </div>
   );
